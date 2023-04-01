@@ -1,3 +1,4 @@
+using System.Net;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using MySubnet.Avalanche;
 using MySubnet.Shared;
@@ -11,11 +12,12 @@ var avalancheVmRuntimeEngineAddr
 var globalSettings = new GlobalSettings(avalancheVmRuntimeEngineAddr, new(), ProtocolVersion);
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.WebHost.ConfigureKestrel(options =>
+builder.WebHost.ConfigureKestrel((context, serverOptions) =>
 {
-    options.ListenAnyIP(0, // Random unused port.
-        endpointDefaults => { endpointDefaults.Protocols = HttpProtocols.Http2; });
+    serverOptions.ListenAnyIP(0, listenOptions =>
+    {
+        listenOptions.Protocols = HttpProtocols.Http2;
+    });
 });
 
 builder.Services.AddSingleton(globalSettings);
@@ -37,3 +39,4 @@ while (!globalSettings.TokenSource.IsCancellationRequested)
 {
     await Task.Delay(1000); // Keep awake
 }
+app.Logger.LogInformation("Application ended");
