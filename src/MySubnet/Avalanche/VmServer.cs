@@ -37,12 +37,13 @@ public class VmServer : Vm.VM.VMBase
 
     public override Task<InitializeResponse> Initialize(InitializeRequest request, ServerCallContext context)
     {
+        base.Initialize
         return Task.FromResult(new InitializeResponse()
         {
             Bytes = ByteString.Empty,
             Height = 0,
-            LastAcceptedId = Id.Empty,
-            LastAcceptedParentId = Id.Empty,
+            LastAcceptedId = Id.Default,
+            LastAcceptedParentId = Id.Default,
             Timestamp = Timestamp.FromDateTime(DateTime.UtcNow)
         });
     }
@@ -77,7 +78,7 @@ public class VmServer : Vm.VM.VMBase
             Bytes = ByteString.Empty,
             Err = Error.Unspecified,
             Height = 0,
-            Id = Id.Empty
+            Id = Id.Default
         });
     }
     public override Task<SetStateResponse> SetState(SetStateRequest request, ServerCallContext context)
@@ -86,8 +87,8 @@ public class VmServer : Vm.VM.VMBase
         {
             Bytes = ByteString.Empty,
             Height = 0,
-            LastAcceptedId = Id.Empty,
-            LastAcceptedParentId = Id.Empty,
+            LastAcceptedId = Id.Default,
+            LastAcceptedParentId = Id.Default,
             Timestamp = Timestamp.FromDateTime(DateTime.UtcNow)
         });
     }
@@ -113,8 +114,8 @@ public class VmServer : Vm.VM.VMBase
         return Task.FromResult(new ParseBlockResponse
         {
             Height = 0,
-            Id = Id.Empty,
-            ParentId = Id.Empty,
+            Id = Id.Default,
+            ParentId = Id.Default,
             Status = Vm.Status.Processing,
             VerifyWithContext = false
         });
