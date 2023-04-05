@@ -1,41 +1,45 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 using Grpc.Net.Client;
-using Microsoft.AspNetCore.Hosting.Server.Features;
 using MySubnet.Shared;
+using Vm.Runtime;
+
 namespace MySubnet.Avalanche;
 
 public class RuntimeClient
 {
-    private readonly Vm.Runtime.Runtime.RuntimeClient _grpcClient;
-    private readonly uint _protocolVersion;
+    private readonly Runtime.RuntimeClient _grpcClient;
     private readonly ILogger _logger;
+    private readonly GlobalSettings _settings;
+
     public RuntimeClient(GlobalSettings settings, ILogger<RuntimeClient> logger)
     {
-        this._logger = logger;
-        _grpcClient = new(GrpcChannel.ForAddress($"http://{settings.Url}"));
-        _protocolVersion = settings.ProtocolVersion;
+        _logger = logger;
+        _settings = settings;
+        _grpcClient = new Runtime.RuntimeClient(GrpcChannel.ForAddress($"http://{settings.RuntimeUrl}"));
     }
 
     public void Initialize(WebApplication app)
     {
         var address = GetServerAddress(app);
         _logger.LogInformation("Calling Runtime.Initialize on {@address}", address);
-        _grpcClient.Initialize(new Vm.Runtime.InitializeRequest
+        _grpcClient.Initialize(new InitializeRequest
         {
             Addr = address,
-            ProtocolVersion = _protocolVersion
+            ProtocolVersion = _settings.ProtocolVersion
         });
     }
 
-    private static string GetServerAddress(WebApplication app)
+    private string GetServerAddress(WebApplication app)
     {
         var url = app.Urls.FirstOrDefault();
         if (url != null)
         {
             var port = GetPort(url);
+            _settings.VmPort = port;
             return $"localhost:{port}";
         }
+
         throw new Exception("Unable to get the WebServer's address");
     }
 

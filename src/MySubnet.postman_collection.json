@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "a10b7828-c65b-468f-8e0e-27f770fd025c",
+		"name": "MySubnet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "850950"
+	},
+	"item": [
+		{
+			"name": "GetLatestBlock",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"jsonrpc\":\"2.0\",\n    \"id\"     :1,\n    \"method\" :\"LatestBlock\"    \n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9650/ext/bc/MySubnet",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9650",
+					"path": [
+						"ext",
+						"bc",
+						"MySubnet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBlockchainState",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"jsonrpc\":\"2.0\",\n    \"id\"     :1,\n    \"method\" :\"BlockchainState\"    \n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9652/ext/bc/MySubnet",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9652",
+					"path": [
+						"ext",
+						"bc",
+						"MySubnet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SendTx",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"jsonrpc\":\"2.0\",\n    \"id\"     :1,\n    \"method\" :\"Transfer\",\n    \"params\":{\n        \"from\":\"Alice\",\n        \"to\":\"Bob\",\n        \"amount\":10\n    }\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9650/ext/bc/MySubnet",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9650",
+					"path": [
+						"ext",
+						"bc",
+						"MySubnet"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
