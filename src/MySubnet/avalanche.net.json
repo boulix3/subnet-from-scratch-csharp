@@ -1,0 +1,14 @@
+{
+    "subnetName": "MySubnet",
+    "vmBuildCommand": "dotnet publish MySubnet.csproj -o /tmp/MySubnet",
+    "vmBinaryPath": "/tmp/MySubnet/MySubnet",
+    "genesisPath": "genesis.json",
+    "avalancheNetworkRunnerPort": 8080,
+    "basePath": "~/.avalanche.net/",
+    "avalanchePluginsPath": "~/.avalanchego/plugins",
+    "seq": null,
+    "avalancheGoPath": "~/.avalanche.net/bin/avalanchego/latest/avalanchego",
+    "avalancheNetworkRunnerPath": "~/.avalanche.net/bin/avalanche-network-runner/latest/avalanche-network-runner",
+    "logsFolderPath": "~/.avalanche.net/data/logs",
+    "configFilePath": "Avalanche.config.json"
+}
